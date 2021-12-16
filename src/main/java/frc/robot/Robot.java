@@ -30,8 +30,8 @@ public class Robot extends TimedRobot {
    
    //Controller
    public static final Joystick joystick = new Joystick(0);
-   public static final POVButton up = new POVButton(joystick, 0);
-   public static final POVButton down = new POVButton(joystick, 180);
+   //public static final POVButton up = new POVButton(joystick, 0);
+   //public static final POVButton down = new POVButton(joystick, 180);
 
    //Mecanism
    public static final Spark arm = new Spark(0);
@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
     //Drivetrain + DriveArcade
     double speed = -joystick.getRawAxis(1) * 0.6;
     double turn = joystick.getRawAxis(4) * 0.3;
+    double armRotate = joystick.getPOV();
+    
 
     double left = speed + turn;
     double right = speed - turn;
@@ -69,7 +71,16 @@ public class Robot extends TimedRobot {
 
 
     // POV Button
-    POVButton[] dpad = new POVButton[] {up, down};
+    //POVButton[] dpad = new POVButton[] {up, down};
+
+    //Mecanism
+    if(armRotate == 0) {
+      arm.setSpeed(-0.1);
+    } else {
+      if(armRotate == 180) {
+        arm.setSpeed(0.1);
+      }
+    }
      
 
   }
